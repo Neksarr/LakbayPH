@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LakbayPH</title>
+
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="skeleton.css">
+    <script src="skeleton.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Yellowtail&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="Logo.png">
+<link rel="stylesheet" href="navbar.css"><script src="theme.js"></script></head>
+
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar" aria-label="Main navigation"><a href="index.html" class="brand"><img src="Logo.png" alt="LakbayPH Logo"><div class="logo">Lakbay<span>PH</span></div></a><div class="navlink"><a href="index.html" class="active" aria-current="page">Home</a>
+<a href="destination.html">Explore</a>
+<a href="Quiz.html">Quiz</a>
+<a href="about.html">About</a></div><div class="nav-controls"><form class="searchbar" id="homeSearch" role="search"><input name="search" type="search" aria-label="Search destinations" placeholder="Search destinations..."><button type="submit" class="searchbtn" aria-label="Search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg></button></form><button class="theme-toggle" type="button" aria-label="Switch to dark mode"><img src="dark.png" alt="" width="22" height="22"></button></div></nav>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+
+        <div class="herocontent">
+
+            <h1>
+                Explore.<br>
+                Discover.<br>
+                Love the
+                <span class="yellowtail-regular">Philippines!</span>
+            </h1>
+
+            <p class="subtitle">
+                LakbayPH helps you discover 30 amazing tourist
+                destinations across Luzon, Visayas, and Mindanao.
+            </p>
+
+            <div class="herobtn">
+
+                <a href="destination.html" class="greenbtn">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+
+                        <path
+                            d="M12 21C12 21 19 15.5 19 9.5C19 5.36 15.87 2 12 2C8.13 2 5 5.36 5 9.5C5 15.5 12 21 12 21Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linejoin="round"
+                        />
+
+                        <circle
+                            cx="12"
+                            cy="9.5"
+                            r="2.5"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        />
+
+                    </svg>
+
+                    <span>Explore destinations</span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- WHITE OVERLAP -->
+    <div class="explore"></div>
+
+
+    <!-- ISLAND GROUPS -->
+    <section class="islandsection" id="destinations">
+
+        <div class="sectiontitle">
+            <h2>⭐ Explore by Island Group</h2>
+        </div>
+
+        <div class="islandgrid">
+
+            <!-- LUZON -->
+            <a class="islandcard luzon" href="destination.html?island=Luzon">
+
+                <div class="cardoverlay">
+
+                    <h3>LUZON</h3>
+
+                    <p>10 Destinations</p>
+
+                    <span class="arrow">›</span>
+
+                </div></a>
+
+
+            <!-- VISAYAS -->
+            <a class="islandcard visayas" href="destination.html?island=Visayas">
+
+                <div class="cardoverlay">
+
+                    <h3>VISAYAS</h3>
+
+                    <p>10 Destinations</p>
+
+                    <span class="arrow">›</span>
+
+                </div></a>
+
+
+            <!-- MINDANAO -->
+            <a class="islandcard mindanao" href="destination.html?island=Mindanao">
+
+                <div class="cardoverlay">
+
+                    <h3>MINDANAO</h3>
+
+                    <p>10 Destinations</p>
+
+                    <span class="arrow">›</span>
+
+                </div></a>
+
+        </div>
+
+    </section>
+
+
+    <!-- TOP RATED DESTINATIONS -->
+    <section class="topratedcontainer">
+
+        <div class="containerheader">
+
+            <h2>⭐ Top Rated Destinations</h2>
+
+            <a href="destination.html">View all &gt;</a>
+
+        </div>
+
+
+        <div class="topratedscard">
+
+            <!-- BORACAY -->
+            <a class="cards" href="destination-detail.html?id=boracay">
+
+                <img src="ILS/Visayas/Boracay/Boracay1.webp" alt="Boracay" loading="lazy">
+
+                <div class="pad">
+
+                    <h3>Boracay</h3>
+
+                    <p class="location">Aklan</p>
+
+                    <p class="rating">⭐ 4.9</p>
+
+                </div>
+
+            </a>
+
+
+            <!-- SIARGAO -->
+            <a class="cards" href="destination-detail.html?id=siargao">
+
+                <img src="ILS/Mindanao/Siargao/guyam-island-siargao-travel-guide-1-1.png" alt="Siargao" loading="lazy">
+
+                <div class="pad">
+
+                    <h3>Siargao</h3>
+
+                    <p class="location">Surigao del Norte</p>
+
+                    <p class="rating">⭐ 4.9</p>
+
+                </div>
+
+            </a>
+
+
+            <!-- CHOCOLATE HILLS -->
+            <a class="cards" href="destination-detail.html?id=chocolate-hills">
+
+                <img src="ILS/Visayas/Chocolate Hills Bohol/Chocolate Hills1.webp" alt="Chocolate Hills" loading="lazy">
+
+                <div class="pad">
+
+                    <h3>Chocolate Hills</h3>
+
+                    <p class="location">Bohol</p>
+
+                    <p class="rating">⭐ 4.8</p>
+
+                </div>
+
+            </a>
+
+
+            <!-- MAYON -->
+            <a class="cards" href="destination-detail.html?id=mayon-volcano">
+
+                <img src="ILS/Luzon/Mayon Volcano Albay/Cagsawa Ruins1.jpg" alt="Mayon Volcano" loading="lazy">
+
+                <div class="pad">
+
+                    <h3>Mayon Volcano</h3>
+
+                    <p class="location">Albay</p>
+
+                    <p class="rating">⭐ 4.8</p>
+
+                </div>
+
+            </a>
+
+
+            <!-- TAGAYTAY -->
+            <a class="cards" href="destination-detail.html?id=tagaytay">
+
+                <img src="ILS/Luzon/Tagaytay/Tagaytay1.jpg" alt="Tagaytay" loading="lazy">
+
+                <div class="pad">
+
+                    <h3>Tagaytay</h3>
+
+                    <p class="location">Cavite</p>
+
+                    <p class="rating">⭐ 4.7</p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+<script src="index.js"></script></body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destination Details | LakbayPH</title>
+  <link rel="icon" type="image/png" href="Logo.png">
+  <link rel="stylesheet" href="destination-detail.css">
+  <link rel="stylesheet" href="skeleton.css">
+  <script src="skeleton.js"></script>
+  <link rel="stylesheet" href="navbar.css">
+  <script src="theme.js"></script>
+  <script src="destinations.js" defer></script>
+  <script src="destination-detail.js" defer></script>
+</head>
+<body>
+  <nav class="navbar" aria-label="Main navigation"><a href="index.html" class="brand"><img src="Logo.png" alt="LakbayPH Logo"><div class="logo">Lakbay<span>PH</span></div></a><div class="navlink"><a href="index.html">Home</a>
+<a href="destination.html" class="active" aria-current="page">Explore</a>
+<a href="Quiz.html">Quiz</a>
+<a href="about.html">About</a></div><div class="nav-controls"><button class="theme-toggle" type="button" aria-label="Switch to dark mode"><img src="dark.png" alt="" width="22" height="22"></button></div></nav>
+
+  <main class="detail-shell">
+    <article class="detail-card" id="destinationDetail" hidden>
+      <a class="back-link" data-back-link href="destination.html"><span aria-hidden="true">←</span> Back to Explore</a>
+      <div class="detail-top">
+        <section class="destination-info" aria-labelledby="destinationName">
+          <h1 id="destinationName"></h1>
+          <p class="detail-location" id="destinationLocation"></p>
+          <span class="island-badge" id="destinationIsland"></span>
+          <p class="detail-summary-rating"><span class="gold-star" aria-hidden="true">★</span> <span id="destinationRating"></span></p>
+          <p class="review-count" id="destinationReviews"></p>
+          <p class="detail-description" id="destinationDescription"></p>
+        </section>
+
+        <figure class="destination-photo">
+          <img id="destinationImage" alt="" fetchpriority="high">
+          <figcaption id="destinationCaption"></figcaption>
+        </figure>
+
+        <aside class="rating-panel" aria-labelledby="ratingHeading">
+          <h2 id="ratingHeading">User Rating</h2>
+          <p class="rating-score" id="ratingScore"></p>
+          <div class="rating-stars" id="ratingStars" role="img">
+            <span aria-hidden="true">★★★★★</span><span class="rating-stars-filled" id="ratingStarsFilled" aria-hidden="true">★★★★★</span>
+          </div>
+          <p class="review-count" id="ratingReviews"></p>
+          <div class="rating-breakdown" id="ratingBreakdown" aria-label="Rating breakdown"></div>
+          <p class="rating-note" id="ratingNote"></p>
+        </aside>
+      </div>
+
+      <div class="detail-bottom">
+        <section aria-labelledby="attractionsHeading">
+          <h2 id="attractionsHeading">Notable Attractions</h2>
+          <ul class="attractions-list" id="destinationAttractions"></ul>
+        </section>
+        <section class="significance-section" aria-labelledby="significanceTitle">
+          <h2 id="significanceTitle"></h2>
+          <p id="destinationSignificance"></p>
+          <a class="destination-source" id="destinationSource" hidden>Learn more about this destination ↗</a>
+        </section>
+      </div>
+    </article>
+
+    <section class="detail-card not-found" id="destinationNotFound" hidden>
+      <h1>Destination not found.</h1>
+      <p>Choose a destination from Explore to see its details.</p>
+      <a class="back-link" data-back-link href="destination.html"><span aria-hidden="true">←</span> Back to Explore</a>
+    </section>
+    <noscript><p>Enable JavaScript to view destination details, or <a href="destination.html">return to Explore</a>.</p></noscript>
+  </main>
+</body>
+</html>

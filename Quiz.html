@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LakbayPH | Quiz</title>
+  <link rel="stylesheet" href="Quiz.css">
+  <link rel="stylesheet" href="skeleton.css">
+  <script src="skeleton.js"></script>
+  <link rel="stylesheet" href="tourism-cards.css">
+<link rel="icon" type="image/png" href="Logo.png"><link rel="stylesheet" href="navbar.css"><script src="theme.js"></script></head>
+<body>
+
+  <nav class="navbar" aria-label="Main navigation"><a href="index.html" class="brand"><img src="Logo.png" alt="LakbayPH Logo"><div class="logo">Lakbay<span>PH</span></div></a><div class="navlink"><a href="index.html">Home</a>
+<a href="destination.html">Explore</a>
+<a href="Quiz.html" class="active" aria-current="page">Quiz</a>
+<a href="about.html">About</a></div><div class="nav-controls"><button class="theme-toggle" type="button" aria-label="Switch to dark mode"><img src="dark.png" alt="" width="22" height="22"></button></div></nav>
+
+  <!-- Home screen -->
+  <main id="homeScreen" class="screen home-screen">
+    <section class="hero">
+      <div class="hero-overlay">
+        <h2>Explore.<br>Discover.<br>Love the</h2>
+        <h1>Philippines!</h1>
+        <p>LakbayPH helps you discover amazing destinations across Luzon,<br>Visayas, and Mindanao.</p>
+        <button type="button" class="primary-btn" id="homeQuizBtn">🎓 Take the Quiz</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Username screen -->
+  <main id="usernameScreen" class="screen centered-screen hidden">
+    <div class="welcome-card">
+      <div class="lightbulb">💡</div>
+      <h1>Welcome, Let's take a quiz</h1>
+      <p>Test your knowledge about the beautiful tourist spots of the Philippines!</p>
+
+      <label for="username">Full Name</label>
+      <input id="username" type="text" maxlength="100" placeholder="Enter your full name" autocomplete="off" aria-describedby="nameError" required>
+      <p id="nameError" class="error" role="alert"></p>
+
+      <button type="button" id="continueBtn" class="primary-btn">Continue →</button>
+    </div>
+  </main>
+
+  <!-- Lets start screen -->
+  <main id="startScreen" class="screen centered-screen hidden">
+    <div class="start-card">
+      <div class="start-icon">✈️</div>
+      <h1>Let's start!</h1>
+      <p>Good luck, <strong id="playerName"></strong>!</p>
+      <button type="button" id="startQuizBtn" class="primary-btn">Start Quiz →</button>
+    </div>
+  </main>
+
+  <!-- Quiz screen -->
+  <main id="quizScreen" class="screen quiz-screen hidden">
+    <section class="quiz-header">
+      <div>
+        <div class="quiz-title"><span>💡</span> Quiz Time!</div>
+        <p>Test your knowledge about the Philippines!</p>
+      </div>
+      <div class="question-count" id="questionCount">Question 1 of 10</div>
+    </section>
+
+    <div class="quiz-layout">
+      <section class="quiz-card">
+        <div class="question-content">
+          <img id="questionImage" alt="Tourist spot">
+          <div class="question-area">
+            <h2 id="questionText"></h2>
+            <div id="answers" class="answers"></div>
+          </div>
+        </div>
+
+        <div class="quiz-controls">
+          <button type="button" id="previousBtn" class="secondary-btn">‹ Previous</button>
+          <button type="button" id="nextBtn" class="next-btn">Next Question ›</button>
+        </div>
+      </section>
+
+      <!-- Score is intentionally hidden during the quiz -->
+      <aside id="scorePanel" class="score-panel hidden" aria-labelledby="finalResultTitle" tabindex="-1">
+        <div class="trophy">🏆</div>
+        <h3 id="finalResultTitle">Quiz Complete!</h3>
+        <div class="result-label">Full Name</div>
+        <div class="result-full-name" id="finalFullName"></div>
+        <div class="result-label">Score</div>
+        <div class="final-score" id="finalScore">0 / 10</div>
+        <div class="result-percentage" id="finalPercentage">0%</div>
+        <p id="scoreMessage"></p>
+        <div class="score-stats">
+          <div><span>Correct Answers</span><b id="correctAnswers">0</b></div>
+          <div><span>Incorrect Answers</span><b id="incorrectAnswers">0</b></div>
+          <div><span>Answered</span><b id="answeredQuestions">0 / 10</b></div>
+        </div>
+        <p class="save-status" id="saveStatus" role="status" aria-live="polite"></p>
+        <div class="result-actions">
+          <button type="button" id="retakeBtn" class="primary-btn">Take Quiz Again</button>
+          <button type="button" class="see-results-btn" id="seeResultsBtn" aria-haspopup="dialog">See Results</button>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <dialog class="quiz-modal password-modal" id="passwordModal" aria-labelledby="passwordTitle">
+    <div class="modal-content">
+      <div class="modal-heading"><h2 id="passwordTitle">View Quiz Results</h2><button type="button" class="modal-close" data-close-dialog="passwordModal" aria-label="Close password window">×</button></div>
+      <form id="resultsPasswordForm">
+        <label for="resultsPassword">Enter Password</label>
+        <input id="resultsPassword" type="password" autocomplete="off" aria-describedby="passwordError" autofocus>
+        <p class="error" id="passwordError" role="alert"></p>
+        <div class="modal-actions"><button type="button" class="secondary-btn" data-close-dialog="passwordModal">Cancel</button><button type="submit" class="results-primary-btn">Submit</button></div>
+      </form>
+    </div>
+  </dialog>
+
+  <dialog class="quiz-modal results-modal" id="resultsModal" aria-labelledby="resultsTitle">
+    <div class="modal-content">
+      <div class="modal-heading"><h2 id="resultsTitle">Quiz Results</h2><button type="button" class="modal-close" data-close-dialog="resultsModal" aria-label="Close quiz results">×</button></div>
+      <p id="resultsStatus" role="status" aria-live="polite">Loading results...</p>
+      <div class="results-table-wrap" id="resultsTableWrap" hidden>
+        <table class="results-table"><caption class="visually-hidden">Completed quiz attempts, newest first</caption><thead><tr><th scope="col">Full Name</th><th scope="col">Score</th><th scope="col">Percentage</th><th scope="col">Date Completed</th></tr></thead><tbody id="resultsRows"></tbody></table>
+      </div>
+      <div class="modal-actions"><button type="button" class="secondary-btn" data-close-dialog="resultsModal">Close</button></div>
+    </div>
+  </dialog>
+
+  <div class="quiz-tourism">
+<section class="islandsection" id="destinations">
+
+        <div class="sectiontitle">
+            <h2>⭐ Explore by Island Group</h2>
+        </div>
+
+        <div class="islandgrid">
+
+            <!-- LUZON -->
+            <a class="islandcard luzon" href="destination.html?island=Luzon">
+
+                <div class="cardoverlay">
+
+                    <h3>LUZON</h3>
+
+                    <p>10 Destinations</p>
+
+                    <span class="arrow">›</span>
+
+                </div></a>
+
+
+            <!-- VISAYAS -->
+            <a class="islandcard visayas" href="destination.html?island=Visayas">
+
+                <div class="cardoverlay">
+
+                    <h3>VISAYAS</h3>
+
+                    <p>10 Destinations</p>
+
+                    <span class="arrow">›</span>
+
+                </div></a>
+
+
+            <!-- MINDANAO -->
+            <a class="islandcard mindanao" href="destination.html?island=Mindanao">
+
+                <div class="cardoverlay">
+
+                    <h3>MINDANAO</h3>
+
+                    <p>10 Destinations</p>
+
+                    <span class="arrow">›</span>
+
+                </div></a>
+
+        </div>
+
+    </section>
+
+
+    <!-- TOP RATED DESTINATIONS -->
+    <section class="topratedcontainer">
+
+        <div class="containerheader">
+
+            <h2>⭐ Top Rated Destinations</h2>
+
+            <a href="destination.html">View all &gt;</a>
+
+        </div>
+
+
+        <div class="topratedscard">
+
+            <!-- BORACAY -->
+            <a class="cards" href="destination-detail.html?id=boracay">
+
+                <img src="ILS/Visayas/Boracay/Boracay1.webp" alt="Boracay" loading="lazy">
+
+                <div class="pad">
+
+                    <h3>Boracay</h3>
+
+                    <p class="location">Aklan</p>
+
+                    <p class="rating">⭐ 4.9</p>
+
+                </div>
+
+            </a>
+
+
+            <!-- SIARGAO -->
+            <a class="cards" href="destination-detail.html?id=siargao">
+
+                <img src="ILS/Mindanao/Siargao/guyam-island-siargao-travel-guide-1-1.png" alt="Siargao" loading="lazy">
+
+                <div class="pad">
+
+                    <h3>Siargao</h3>
+
+                    <p class="location">Surigao del Norte</p>
+
+                    <p class="rating">⭐ 4.9</p>
+
+                </div>
+
+            </a>
+
+
+            <!-- CHOCOLATE HILLS -->
+            <a class="cards" href="destination-detail.html?id=chocolate-hills">
+
+                <img src="ILS/Visayas/Chocolate Hills Bohol/Chocolate Hills1.webp" alt="Chocolate Hills" loading="lazy">
+
+                <div class="pad">
+
+                    <h3>Chocolate Hills</h3>
+
+                    <p class="location">Bohol</p>
+
+                    <p class="rating">⭐ 4.8</p>
+
+                </div>
+
+            </a>
+
+
+            <!-- MAYON -->
+            <a class="cards" href="destination-detail.html?id=mayon-volcano">
+
+                <img src="ILS/Luzon/Mayon Volcano Albay/Cagsawa Ruins1.jpg" alt="Mayon Volcano" loading="lazy">
+
+                <div class="pad">
+
+                    <h3>Mayon Volcano</h3>
+
+                    <p class="location">Albay</p>
+
+                    <p class="rating">⭐ 4.8</p>
+
+                </div>
+
+            </a>
+
+
+            <!-- TAGAYTAY -->
+            <a class="cards" href="destination-detail.html?id=tagaytay">
+
+                <img src="ILS/Luzon/Tagaytay/Tagaytay1.jpg" alt="Tagaytay" loading="lazy">
+
+                <div class="pad">
+
+                    <h3>Tagaytay</h3>
+
+                    <p class="location">Cavite</p>
+
+                    <p class="rating">⭐ 4.7</p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+</div>
+<footer class="site-footer">LakbayPH &middot; Love. Enjoy. Explore Philippines.</footer>
+
+  <script src="destinations.js"></script><script src="firebase-config.js"></script><script src="Quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LakbayPH | Destinations</title>
+        <link rel="stylesheet" href="destination.css">
+        <link rel="stylesheet" href="skeleton.css">
+        <script src="skeleton.js"></script>
+        <link rel="icon" type="image/png" href="Logo.png">
+    <link rel="stylesheet" href="navbar.css"><script src="theme.js"></script></head>
+    <body>
+
+        <nav class="navbar" aria-label="Main navigation"><a href="index.html" class="brand"><img src="Logo.png" alt="LakbayPH Logo"><div class="logo">Lakbay<span>PH</span></div></a><div class="navlink"><a href="index.html">Home</a>
+<a href="destination.html" class="active" aria-current="page">Explore</a>
+<a href="Quiz.html">Quiz</a>
+<a href="about.html">About</a></div><div class="nav-controls"><button class="theme-toggle" type="button" aria-label="Switch to dark mode"><img src="dark.png" alt="" width="22" height="22"></button></div></nav>
+    <!-- CONTENT GRID -->
+        <main class="content">
+  <h1>Explore Destinations</h1>
+  <p class="intro">Find and explore tourist spots across the Philippines.</p>
+  <div class="search-bar" role="search">
+    <input id="destinationSearch" type="search" placeholder="Search destinations..." aria-label="Search destinations">
+  </div>
+  <div class="main-container">
+    <aside class="sidebar" aria-label="Destination filters">
+      <h3>Island Group</h3><ul class="filter-list" id="islandFilters"></ul>
+      <h3>Categories</h3><ul class="filter-list" id="categoryFilters"></ul>
+      <button type="button" class="clear-btn" id="clearFilters">Clear Filters</button>
+    </aside>
+    <section class="results" aria-label="Destinations">
+      <p id="resultCount" role="status" aria-live="polite"></p>
+      <div class="cards-grid" id="destinationCards"></div>
+      <nav class="pages" id="pagination" aria-label="Destination pages"></nav>
+    </section>
+  </div>
+  <noscript>Please enable JavaScript to search and filter the destination catalog.</noscript>
+</main>
+    <script src="destinations.js"></script><script src="destination.js"></script></body>
+</html>

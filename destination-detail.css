@@ -1,0 +1,57 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
+.detail-shell { max-width: 1500px; margin: auto; padding: 36px 5% 60px; }
+.detail-card { padding: clamp(22px, 3vw, 40px); border: 1px solid var(--border); border-radius: 18px; background: var(--surface); box-shadow: 0 5px 24px #0000000d; }
+.back-link { display: inline-flex; align-items: center; gap: 9px; color: var(--primary); font-size: 14px; font-weight: 700; text-decoration: none; padding: 7px 0; margin-bottom: 27px; }
+.back-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.back-link span { font-size: 21px; }
+.detail-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.65fr) minmax(180px, .75fr); align-items: start; gap: 30px; }
+.detail-top > *, .detail-bottom > * { min-width: 0; }
+.destination-info h1 { font-size: clamp(26px, 2.5vw, 36px); letter-spacing: -.7px; line-height: 1.15; margin-bottom: 16px; overflow-wrap: break-word; }
+.detail-location { color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 12px; }
+.island-badge { display: inline-block; color: var(--selected-text); background: var(--selected); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+.detail-summary-rating { margin: 20px 0 5px; font-size: 15px; font-weight: 700; }
+.gold-star { color: #d6a400; }
+.review-count { color: var(--muted); font-size: 12px; line-height: 1.6; }
+.detail-description { margin-top: 20px; font-size: 14px; line-height: 1.8; color: var(--muted); }
+.destination-photo img { display: block; width: 100%; aspect-ratio: 4 / 3; min-height: 310px; object-fit: cover; border-radius: 12px; }
+.destination-photo figcaption { color: var(--muted); font-size: 12px; margin-top: 10px; line-height: 1.5; }
+.detail-card h2 { font-size: 19px; line-height: 1.4; margin-bottom: 14px; }
+.rating-panel { padding-left: 22px; border-left: 1px solid var(--border); }
+.rating-panel h2 { font-size: 17px; }
+.rating-score { font-size: 38px; font-weight: 800; letter-spacing: -1px; line-height: 1.25; }
+.rating-score small { font-size: 15px; font-weight: 400; color: var(--muted); letter-spacing: 0; }
+.rating-score.unrated { font-size: 23px; letter-spacing: -.3px; }
+.rating-stars { display: inline-block; position: relative; font-size: 23px; line-height: 1.6; letter-spacing: 2px; color: var(--border); white-space: nowrap; margin: 4px 0; }
+.rating-stars-filled { position: absolute; inset: 0 auto 0 0; overflow: hidden; color: #d6a400; width: 0; }
+.rating-breakdown { display: grid; gap: 11px; margin-top: 24px; }
+.rating-row { display: grid; grid-template-columns: 30px minmax(0, 1fr) 34px; gap: 7px; align-items: center; font-size: 12px; }
+.rating-label { white-space: nowrap; color: var(--muted); }
+.rating-label span { color: #d6a400; }
+.rating-track { height: 7px; border-radius: 8px; background: var(--border); overflow: hidden; }
+.rating-fill { display: block; height: 100%; width: 0; background: #d6a400; border-radius: inherit; }
+.rating-percent { color: var(--muted); text-align: right; }
+.rating-note { color: var(--muted); font-size: 12px; line-height: 1.6; margin-top: 15px; }
+.detail-bottom { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr); gap: 30px; border-top: 1px solid var(--border); padding-top: 30px; margin-top: 34px; }
+.attractions-list { list-style: none; display: grid; gap: 14px; }
+.attractions-list li { display: flex; gap: 10px; align-items: start; font-size: 14px; line-height: 1.6; }
+.attraction-check { display: inline-grid; place-items: center; flex: 0 0 20px; height: 20px; margin-top: 1px; border-radius: 50%; font-size: 12px; font-weight: 700; color: var(--selected-text); background: var(--selected); }
+.significance-section p { font-size: 15px; line-height: 1.85; color: var(--muted); max-width: 75ch; }
+.destination-source { display: inline-block; color: var(--primary); font-size: 12px; margin-top: 16px; text-underline-offset: 3px; }
+.not-found h1 { margin-bottom: 12px; }
+.not-found p { color: var(--muted); line-height: 1.6; }
+.not-found .back-link { margin: 20px 0 0; }
+@media (max-width: 1100px) {
+  .detail-top { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); }
+  .rating-panel { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--border); padding: 24px 0 0; }
+  .rating-breakdown { max-width: 460px; }
+  .detail-bottom { grid-template-columns: 1fr 1.4fr; }
+}
+@media (max-width: 700px) {
+  .detail-shell { padding: 20px 5% 36px; }
+  .detail-top, .detail-bottom { grid-template-columns: 1fr; gap: 26px; }
+  .back-link { margin-bottom: 22px; }
+  .destination-photo img { min-height: 0; aspect-ratio: 4 / 3; }
+  .detail-bottom { margin-top: 26px; padding-top: 26px; }
+  .rating-panel { grid-column: auto; }
+}
