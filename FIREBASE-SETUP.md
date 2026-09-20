@@ -13,7 +13,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /quizResults/{attemptId} {
-      allow read: if false;
+      allow read: if true;
       allow create: if
         request.resource.data.keys().hasOnly([
           'fullName', 'score', 'totalQuestions', 'correctAnswers',
@@ -56,7 +56,7 @@ service cloud.firestore {
 }
 ```
 
-Quiz result reads remain blocked by Firestore rules because a password embedded in a static page cannot securely protect student names, answers, and scores. Add Firebase Authentication and authenticated read rules before enabling the results list for real student data.
+Quiz result reads are public for this school project so the predefined-password results window can load saved attempts. The password is a visual gate in the static website; use Firebase Authentication and authenticated read rules before using this flow outside the project.
 
 The browser loads the modular Firebase SDK from Google's CDN. Destination ratings are stored in `destinationRatings` with a destination ID, full name, half-star rating, optional description, and server timestamp. Public reads update destination averages, breakdowns, and review cards in real time. Writes are create-only, so public visitors cannot edit or delete existing entries.
 
