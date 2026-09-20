@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /quizResults/{attemptId} {
+      allow read: if true;
+      allow create: if
+        request.resource.data.keys().hasOnly([
+          'fullName', 'score', 'totalQuestions', 'correctAnswers',
+          'incorrectAnswers', 'percentage', 'answers', 'completedAt'
+        ]) &&
+        request.resource.data.fullName is string &&
+        request.resource.data.fullName.size() > 0 &&
+        request.resource.data.fullName.size() <= 100 &&
+        request.resource.data.score is int &&
+        request.resource.data.totalQuestions is int &&
+        request.resource.data.correctAnswers is int &&
+        request.resource.data.incorrectAnswers is int &&
+        request.resource.data.percentage is int &&
+        request.resource.data.answers is list &&
+        request.resource.data.answers.size() <= 20 &&
+        request.resource.data.completedAt == request.time;
+      allow update, delete: if false;
+    }
+
+    match /destinationRatings/{ratingId} {
+      allow read: if true;
+      allow create: if
+        request.resource.data.keys().hasOnly([
+          'destinationId', 'fullName', 'rating', 'description', 'createdAt'
+        ]) &&
+        request.resource.data.destinationId is string &&
+        request.resource.data.destinationId.matches('^[a-z0-9-]+$') &&
+        request.resource.data.destinationId.size() <= 100 &&
+        request.resource.data.fullName is string &&
+        request.resource.data.fullName.size() > 0 &&
+        request.resource.data.fullName.size() <= 100 &&
+        request.resource.data.rating is number &&
+        request.resource.data.rating >= 0.5 &&
+        request.resource.data.rating <= 5 &&
+        (request.resource.data.rating * 2) is int &&
+        request.resource.data.description is string &&
+        request.resource.data.description.size() <= 500 &&
+        request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
+  }
+}

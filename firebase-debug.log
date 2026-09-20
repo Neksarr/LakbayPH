@@ -1,0 +1,13 @@
+[debug] [2026-09-20T14:18:04.746Z] ----------------------------------------------------------------------
+[debug] [2026-09-20T14:18:04.749Z] Command:       D:\Program Files\nodejs\node.exe C:\Users\Skyler\AppData\Local\npm-cache\_npx\ba4f1959e38407b5\node_modules\firebase-tools\lib\bin\firebase.js login --no-localhost
+[debug] [2026-09-20T14:18:04.750Z] CLI Version:   15.30.2
+[debug] [2026-09-20T14:18:04.750Z] Platform:      win32
+[debug] [2026-09-20T14:18:04.750Z] Node Version:  v26.7.0
+[debug] [2026-09-20T14:18:04.750Z] Detected Agent: codex_cli
+[debug] [2026-09-20T14:18:04.751Z] Time:          Sun Sep 20 2026 22:18:04 GMT+0800 (China Standard Time)
+[debug] [2026-09-20T14:18:04.751Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-09-20T14:18:04.763Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2026-09-20T14:18:04.972Z] >>> [apiv2][query] POST https://auth.firebase.tools/attest [none]
+[debug] [2026-09-20T14:18:04.972Z] >>> [apiv2][body] POST https://auth.firebase.tools/attest {"session_id":"a5287954-acad-49af-97d6-4fad6110cdac"}
+[debug] [2026-09-20T14:18:05.346Z] <<< [apiv2][status] POST https://auth.firebase.tools/attest 200

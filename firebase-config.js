@@ -67,4 +67,60 @@ const firebaseConfig = {
       return snapshot.docs.map(document => ({ ...document.data(), id: document.id }));
     }));
   };
+
+  window.saveDestinationRating = function (review) {
+    const destinationId = review.destinationId?.trim();
+    const fullName = review.fullName?.trim();
+    const description = review.description?.trim() || '';
+    const rating = Number(review.rating);
+    const validRating = Number.isFinite(rating) && rating >= 0.5 && rating <= 5 && Number.isInteger(rating * 2);
+
+    if (!destinationId || !/^[a-z0-9-]+$/.test(destinationId)) {
+      return Promise.reject(new Error('A valid destination is required.'));
+    }
+    if (!fullName || fullName.length > 100) {
+      return Promise.reject(new Error('Enter a full name with 100 characters or fewer.'));
+    }
+    if (!validRating) {
+      return Promise.reject(new Error('Choose a full or half-star rating.'));
+    }
+    if (description.length > 500) {
+      return Promise.reject(new Error('Keep the description within 500 characters.'));
+    }
+
+    return withTimeout(connect().then(async ({ db, firestore }) => {
+      const { addDoc, collection, serverTimestamp } = firestore;
+      const document = await addDoc(collection(db, 'destinationRatings'), {
+        destinationId,
+        fullName,
+        rating,
+        description,
+        createdAt: serverTimestamp()
+      });
+      return document.id;
+    }));
+  };
+
+  window.subscribeDestinationRatings = function (destinationId, onRatings, onError) {
+    let active = true;
+    let unsubscribe = () => {};
+
+    connect().then(({ db, firestore }) => {
+      if (!active) return;
+      const { collection, onSnapshot, query, where } = firestore;
+      const ratingsQuery = query(
+        collection(db, 'destinationRatings'),
+        where('destinationId', '==', destinationId)
+      );
+      unsubscribe = onSnapshot(ratingsQuery, snapshot => {
+        const ratings = snapshot.docs.map(document => ({ ...document.data(), id: document.id }));
+        onRatings(ratings);
+      }, error => onError?.(error));
+    }).catch(error => onError?.(error));
+
+    return () => {
+      active = false;
+      unsubscribe();
+    };
+  };
 })();

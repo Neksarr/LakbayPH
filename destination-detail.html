@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="navbar.css">
   <script src="theme.js"></script>
   <script src="destinations.js" defer></script>
+  <script src="firebase-config.js" defer></script>
   <script src="destination-detail.js" defer></script>
 </head>
 <body>
@@ -44,8 +45,8 @@
             <span aria-hidden="true">★★★★★</span><span class="rating-stars-filled" id="ratingStarsFilled" aria-hidden="true">★★★★★</span>
           </div>
           <p class="review-count" id="ratingReviews"></p>
-          <div class="rating-breakdown" id="ratingBreakdown" aria-label="Rating breakdown"></div>
-          <p class="rating-note" id="ratingNote"></p>
+          <div class="rating-breakdown" id="ratingBreakdown" aria-label="Rating breakdown" hidden></div>
+          <button class="rate-button" id="openRatingModal" type="button"><span aria-hidden="true">★</span> Rate this place</button>
         </aside>
       </div>
 
@@ -60,6 +61,16 @@
           <a class="destination-source" id="destinationSource" hidden>Learn more about this destination ↗</a>
         </section>
       </div>
+
+      <section class="community-reviews" aria-labelledby="communityReviewsHeading">
+        <div class="community-reviews-heading">
+          <h2 id="communityReviewsHeading">Community Reviews</h2>
+          <p id="communityReviewSummary">No community ratings yet.</p>
+        </div>
+        <div class="community-review-list" id="communityReviewList">
+          <p class="empty-reviews">Be the first to rate this destination.</p>
+        </div>
+      </section>
     </article>
 
     <section class="detail-card not-found" id="destinationNotFound" hidden>
@@ -69,5 +80,46 @@
     </section>
     <noscript><p>Enable JavaScript to view destination details, or <a href="destination.html">return to Explore</a>.</p></noscript>
   </main>
+
+  <dialog class="rating-modal" id="ratingModal" aria-labelledby="ratingModalTitle">
+    <form class="rating-form" id="ratingForm" novalidate>
+      <button class="modal-close" id="closeRatingModal" type="button" aria-label="Close rating window">×</button>
+
+      <section class="rating-step" data-rating-step="1">
+        <p class="rating-step-label">Step 1 of 3</p>
+        <h2 id="ratingModalTitle">What is your full name?</h2>
+        <p class="rating-step-copy">Your name will appear with your public rating.</p>
+        <label class="field-label" for="reviewerName">Full name</label>
+        <input id="reviewerName" name="fullName" type="text" maxlength="100" autocomplete="name" required placeholder="Enter your full name">
+        <p class="rating-form-error" id="nameRatingError" role="alert"></p>
+        <div class="rating-modal-actions end"><button class="rating-next-button" type="button" data-next-rating-step>Next</button></div>
+      </section>
+
+      <section class="rating-step" data-rating-step="2" hidden>
+        <p class="rating-step-label">Step 2 of 3</p>
+        <h2>How many stars would you give?</h2>
+        <p class="rating-step-copy">Choose a full or half-star rating.</p>
+        <div class="interactive-stars" id="interactiveStars" role="radiogroup" aria-label="Choose a rating from half a star to five stars">
+          <span class="interactive-stars-base" aria-hidden="true">★★★★★</span>
+          <span class="interactive-stars-fill" id="interactiveStarsFill" aria-hidden="true">★★★★★</span>
+          <div class="star-hitboxes" id="starHitboxes"></div>
+        </div>
+        <output class="selected-rating" id="selectedRating" aria-live="polite">Select a rating</output>
+        <p class="rating-form-error" id="starRatingError" role="alert"></p>
+        <div class="rating-modal-actions"><button class="rating-back-button" type="button" data-previous-rating-step>Back</button><button class="rating-next-button" type="button" data-next-rating-step>Next</button></div>
+      </section>
+
+      <section class="rating-step" data-rating-step="3" hidden>
+        <p class="rating-step-label">Step 3 of 3</p>
+        <h2>Share your experience</h2>
+        <p class="rating-step-copy">Your description is optional and will be visible to everyone.</p>
+        <label class="field-label" for="reviewDescription">Description <span>(optional)</span></label>
+        <textarea id="reviewDescription" name="description" maxlength="500" rows="5" placeholder="What did you enjoy about this destination?"></textarea>
+        <div class="description-count"><span id="descriptionCount">0</span>/500</div>
+        <p class="rating-form-error" id="ratingSaveError" role="alert"></p>
+        <div class="rating-modal-actions"><button class="rating-back-button" type="button" data-previous-rating-step>Back</button><button class="rating-next-button" id="submitRating" type="submit">Done</button></div>
+      </section>
+    </form>
+  </dialog>
 </body>
 </html>

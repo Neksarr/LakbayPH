@@ -1,10 +1,10 @@
-# Quiz result storage
+# Firebase storage
 
 The website works as static files on GitHub Pages. No build step or npm packages are required.
 
 1. The web configuration for project `lakbayph-0` is already present in `firebase-config.js`.
-2. Create a Cloud Firestore database if it does not exist, then configure rules for the `quizResults` collection. A live check currently returns `PERMISSION_DENIED`, so reads and writes will fail until the rules are updated.
-3. Serve the site over HTTP(S), such as GitHub Pages, and complete a quiz. Confirm that one document appears in `quizResults`. Check the browser console if saving fails.
+2. Create a Cloud Firestore database if it does not exist, then deploy the included `firestore.rules`. The rules cover both `quizResults` and public `destinationRatings`.
+3. Serve the site over HTTP(S), such as GitHub Pages. Complete a quiz and submit a destination rating, then confirm documents appear in the matching collections.
 
 For this anonymous school/demo flow, a restricted create-only rule plus public result reads can be used:
 
@@ -32,13 +32,37 @@ service cloud.firestore {
         request.resource.data.completedAt == request.time;
       allow update, delete: if false;
     }
+
+    match /destinationRatings/{ratingId} {
+      allow read: if true;
+      allow create: if
+        request.resource.data.keys().hasOnly([
+          'destinationId', 'fullName', 'rating', 'description', 'createdAt'
+        ]) &&
+        request.resource.data.destinationId is string &&
+        request.resource.data.destinationId.matches('^[a-z0-9-]+$') &&
+        request.resource.data.destinationId.size() <= 100 &&
+        request.resource.data.fullName is string &&
+        request.resource.data.fullName.size() > 0 &&
+        request.resource.data.fullName.size() <= 100 &&
+        request.resource.data.rating is number &&
+        request.resource.data.rating >= 0.5 &&
+        request.resource.data.rating <= 5 &&
+        (request.resource.data.rating * 2) is int &&
+        request.resource.data.description is string &&
+        request.resource.data.description.size() <= 500 &&
+        request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
   }
 }
 ```
 
 The password in the static page is only a visual demo gate. Since `allow read: if true` makes names and scores publicly readable through Firestore, use Firebase Authentication and authenticated read rules before collecting real student data.
 
-The browser loads the modular Firebase SDK from Google's CDN. A completed attempt saves its full name, score, question count, correct/incorrect counts, percentage, answer details, and a server timestamp. Each attempt uses one generated document ID, and repeated Finish calls reuse the same write. Retake starts a new attempt. A failed network request never prevents the score from displaying.
+The browser loads the modular Firebase SDK from Google's CDN. Destination ratings are stored in `destinationRatings` with a destination ID, full name, half-star rating, optional description, and server timestamp. Public reads update destination averages, breakdowns, and review cards in real time. Writes are create-only, so public visitors cannot edit or delete existing entries.
+
+A completed quiz attempt saves its full name, score, question count, correct/incorrect counts, percentage, answer details, and a server timestamp. Each attempt uses one generated document ID, and repeated Finish calls reuse the same write. Retake starts a new attempt. A failed network request never prevents the score from displaying.
 
 Official references: [Firebase web setup](https://firebase.google.com/docs/web/setup), [Firestore writes](https://firebase.google.com/docs/firestore/manage-data/add-data), [Firestore security rules](https://firebase.google.com/docs/firestore/security/get-started).
 
