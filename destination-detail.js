@@ -150,10 +150,20 @@
       date.textContent = reviewDate(review);
       identity.append(name);
       if (date.textContent) identity.append(date);
-      const rating = document.createElement('p');
-      rating.className = 'community-review-rating';
-      rating.textContent = `${review.rating.toFixed(1)} ★`;
+      const rating = document.createElement('div');
+      rating.className = 'community-review-stars';
+      rating.setAttribute('role', 'img');
       rating.setAttribute('aria-label', `${review.rating.toFixed(1)} out of 5 stars`);
+      const ratingBase = document.createElement('span');
+      ratingBase.className = 'community-review-stars-base';
+      ratingBase.textContent = '★★★★★';
+      ratingBase.setAttribute('aria-hidden', 'true');
+      const ratingFill = document.createElement('span');
+      ratingFill.className = 'community-review-stars-fill';
+      ratingFill.textContent = '★★★★★';
+      ratingFill.style.width = `${review.rating / 5 * 100}%`;
+      ratingFill.setAttribute('aria-hidden', 'true');
+      rating.append(ratingBase, ratingFill);
       header.append(identity, rating);
       item.append(header);
       if (typeof review.description === 'string' && review.description.trim()) {

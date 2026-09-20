@@ -13,7 +13,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /quizResults/{attemptId} {
-      allow read: if true;
+      allow read: if false;
       allow create: if
         request.resource.data.keys().hasOnly([
           'fullName', 'score', 'totalQuestions', 'correctAnswers',
@@ -46,9 +46,7 @@ service cloud.firestore {
         request.resource.data.fullName.size() > 0 &&
         request.resource.data.fullName.size() <= 100 &&
         request.resource.data.rating is number &&
-        request.resource.data.rating >= 0.5 &&
-        request.resource.data.rating <= 5 &&
-        (request.resource.data.rating * 2) is int &&
+        request.resource.data.rating in [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5] &&
         request.resource.data.description is string &&
         request.resource.data.description.size() <= 500 &&
         request.resource.data.createdAt == request.time;
@@ -58,7 +56,7 @@ service cloud.firestore {
 }
 ```
 
-The password in the static page is only a visual demo gate. Since `allow read: if true` makes names and scores publicly readable through Firestore, use Firebase Authentication and authenticated read rules before collecting real student data.
+Quiz result reads remain blocked by Firestore rules because a password embedded in a static page cannot securely protect student names, answers, and scores. Add Firebase Authentication and authenticated read rules before enabling the results list for real student data.
 
 The browser loads the modular Firebase SDK from Google's CDN. Destination ratings are stored in `destinationRatings` with a destination ID, full name, half-star rating, optional description, and server timestamp. Public reads update destination averages, breakdowns, and review cards in real time. Writes are create-only, so public visitors cannot edit or delete existing entries.
 

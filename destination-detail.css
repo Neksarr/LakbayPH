@@ -50,11 +50,13 @@
 .community-review-header { display: flex; justify-content: space-between; align-items: start; gap: 16px; }
 .community-review h3 { font-size: 15px; line-height: 1.4; }
 .community-review time { display: block; color: var(--muted); font-size: 11px; margin-top: 3px; }
-.community-review-rating { flex: 0 0 auto; color: #b88900; font-weight: 800; font-size: 14px; }
-[data-theme="dark"] .community-review-rating { color: #ffd34e; }
+.community-review-stars { position: relative; flex: 0 0 auto; color: var(--border); font-size: 19px; line-height: 1; letter-spacing: 2px; white-space: nowrap; }
+.community-review-stars-base { display: block; }
+.community-review-stars-fill { position: absolute; inset: 0 auto 0 0; overflow: hidden; color: #d6a400; white-space: nowrap; }
+[data-theme="dark"] .community-review-stars-fill { color: #ffd34e; }
 .community-review-description { color: var(--muted); font-size: 14px; line-height: 1.7; margin-top: 13px; white-space: pre-wrap; overflow-wrap: anywhere; }
 
-.rating-modal { width: min(92vw, 520px); max-height: min(88vh, 680px); padding: 0; border: 1px solid var(--border); border-radius: 18px; background: var(--surface); color: var(--text); box-shadow: 0 24px 80px #0007; overflow: auto; }
+.rating-modal { position: fixed; inset: auto; top: 50vh; left: 50vw; width: min(92vw, 520px); max-height: min(88vh, 680px); margin: 0; padding: 0; border: 1px solid var(--border); border-radius: 18px; background: var(--surface); color: var(--text); box-shadow: 0 24px 80px #0007; overflow: auto; transform: translate(-50%, -50%); }
 .rating-modal::backdrop { background: #07110bc4; backdrop-filter: blur(3px); }
 .rating-form { position: relative; min-height: 390px; padding: clamp(25px, 5vw, 38px); }
 .modal-close { position: absolute; top: 16px; right: 16px; z-index: 1; width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 50%; background: var(--bg); color: var(--text); font-size: 23px; line-height: 1; cursor: pointer; transition: transform .18s ease, background-color .2s ease; }
