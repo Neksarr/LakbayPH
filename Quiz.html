@@ -23,7 +23,10 @@
         <h2>Explore.<br>Discover.<br>Love the</h2>
         <h1>Philippines!</h1>
         <p>LakbayPH helps you discover amazing destinations across Luzon,<br>Visayas, and Mindanao.</p>
-        <button type="button" class="primary-btn" id="homeQuizBtn">🎓 Take the Quiz</button>
+        <div class="hero-actions">
+          <button type="button" class="primary-btn" id="homeQuizBtn">🎓 Take the Quiz</button>
+          <button type="button" class="see-results-btn" id="homeSeeResultsBtn" aria-haspopup="dialog">See Results</button>
+        </div>
       </div>
     </section>
   </main>
@@ -102,18 +105,6 @@
       </aside>
     </div>
   </main>
-
-  <dialog class="quiz-modal password-modal" id="passwordModal" aria-labelledby="passwordTitle">
-    <div class="modal-content">
-      <div class="modal-heading"><h2 id="passwordTitle">View Quiz Results</h2><button type="button" class="modal-close" data-close-dialog="passwordModal" aria-label="Close password window">×</button></div>
-      <form id="resultsPasswordForm">
-        <label for="resultsPassword">Enter Password</label>
-        <input id="resultsPassword" type="password" autocomplete="off" aria-describedby="passwordError" autofocus>
-        <p class="error" id="passwordError" role="alert"></p>
-        <div class="modal-actions"><button type="button" class="secondary-btn" data-close-dialog="passwordModal">Cancel</button><button type="submit" class="results-primary-btn">Submit</button></div>
-      </form>
-    </div>
-  </dialog>
 
   <dialog class="quiz-modal results-modal" id="resultsModal" aria-labelledby="resultsTitle">
     <div class="modal-content">

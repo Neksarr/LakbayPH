@@ -85,10 +85,7 @@ const questionCount = document.getElementById("questionCount");
 const previousBtn = document.getElementById("previousBtn");
 const nextBtn = document.getElementById("nextBtn");
 const scorePanel = document.getElementById("scorePanel");
-const passwordModal = document.getElementById("passwordModal");
 const resultsModal = document.getElementById("resultsModal");
-const passwordInput = document.getElementById("resultsPassword");
-const passwordError = document.getElementById("passwordError");
 
 function createAttemptId() {
   if (crypto.randomUUID) return crypto.randomUUID();
@@ -294,33 +291,14 @@ document.getElementById("retakeBtn").addEventListener("click", () => {
 
 function closeDialog(dialog) {
   if (dialog.open) dialog.close();
-  if (dialog === passwordModal) {
-    passwordInput.value = "";
-    passwordError.textContent = "";
-  }
 }
-
-document.getElementById("seeResultsBtn").addEventListener("click", () => {
-  passwordInput.value = "";
-  passwordError.textContent = "";
-  passwordModal.showModal();
-  passwordInput.focus();
-});
 
 document.querySelectorAll("[data-close-dialog]").forEach(button => {
   button.addEventListener("click", () => closeDialog(document.getElementById(button.dataset.closeDialog)));
 });
 
-[passwordModal, resultsModal].forEach(dialog => {
-  dialog.addEventListener("click", event => {
-    if (event.target === dialog) closeDialog(dialog);
-  });
-  dialog.addEventListener("close", () => {
-    if (dialog === passwordModal) {
-      passwordInput.value = "";
-      passwordError.textContent = "";
-    }
-  });
+resultsModal.addEventListener("click", event => {
+  if (event.target === resultsModal) closeDialog(resultsModal);
 });
 
 function formatCompletedAt(completedAt) {
@@ -381,18 +359,8 @@ async function showSavedResults() {
   }
 }
 
-document.getElementById("resultsPasswordForm").addEventListener("submit", event => {
-  event.preventDefault();
-  // Demo-only client-side password gate.
-  // For real security, use Firebase Authentication and Firestore Security Rules.
-  if (passwordInput.value !== "Rylie123") {
-    passwordError.textContent = "Incorrect password.";
-    passwordInput.select();
-    return;
-  }
-  closeDialog(passwordModal);
-  void showSavedResults();
-});
+document.getElementById("homeSeeResultsBtn").addEventListener("click", showSavedResults);
+document.getElementById("seeResultsBtn").addEventListener("click", showSavedResults);
 
 // A refresh always starts a clean browser quiz session. Firestore data is untouched.
 usernameInput.value = "";

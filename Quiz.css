@@ -103,6 +103,8 @@ body {
   margin-bottom: 18px;
 }
 
+.hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+
 .primary-btn,
 .next-btn,
 .secondary-btn {
@@ -120,7 +122,8 @@ body {
 }
 
 .primary-btn:hover,
-.next-btn:hover {
+.next-btn:hover,
+.see-results-btn:hover {
   transform: translateY(-1px);
   filter: brightness(.96);
 }
@@ -356,9 +359,7 @@ body {
   font-size: 13px;
 }
 
-.see-results-btn, .results-primary-btn { background: #385435; color: #fff; border: 0; border-radius: 8px; padding: 11px 20px; font-weight: 700; cursor: pointer; }
-.see-results-btn { transition: transform .2s ease, box-shadow .2s ease; }
-.see-results-btn:hover { transform: scale(1.07); box-shadow: 0 5px 14px #0003; }
+.see-results-btn { background: #385435; color: #fff; border: 0; border-radius: 8px; padding: 11px 20px; font-weight: 700; cursor: pointer; transition: .2s; }
 .result-label { font-size: 13px; color: var(--muted); margin-top: 15px; }
 .result-full-name { font-size: clamp(22px, 4vw, 30px); font-weight: 800; color: var(--primary); margin: 8px 0 20px; overflow-wrap: anywhere; }
 .result-percentage { color: var(--primary); font-size: 24px; font-weight: 700; margin-bottom: 16px; }
