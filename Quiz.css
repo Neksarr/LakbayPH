@@ -376,6 +376,10 @@ body {
 .quiz-modal input { display: block; width: 100%; height: 46px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); margin-bottom: 10px; }
 .modal-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; }
 #resultsStatus { color: var(--muted); line-height: 1.6; }
+.results-search { margin-bottom: 18px; }
+.results-search[hidden] { display: none; }
+.results-search .results-search-count { min-height: 18px; margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+.results-search input { margin-bottom: 6px; }
 .results-table-wrap[hidden] { display: none; }
 .results-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
 .results-table th, .results-table td { padding: 14px 10px; border-bottom: 1px solid var(--border); vertical-align: top; overflow-wrap: anywhere; }

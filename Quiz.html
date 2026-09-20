@@ -109,6 +109,11 @@
   <dialog class="quiz-modal results-modal" id="resultsModal" aria-labelledby="resultsTitle">
     <div class="modal-content">
       <div class="modal-heading"><h2 id="resultsTitle">Quiz Results</h2><button type="button" class="modal-close" data-close-dialog="resultsModal" aria-label="Close quiz results">×</button></div>
+      <div class="results-search" id="resultsSearchWrap" hidden>
+        <label for="resultsSearch">Search quiz results</label>
+        <input type="search" id="resultsSearch" placeholder="Search by name, score, or date" autocomplete="off">
+        <p class="results-search-count" id="resultsSearchCount" aria-live="polite"></p>
+      </div>
       <p id="resultsStatus" role="status" aria-live="polite">Loading results...</p>
       <div class="results-table-wrap" id="resultsTableWrap" hidden>
         <table class="results-table"><caption class="visually-hidden">Completed quiz attempts, newest first</caption><thead><tr><th scope="col">Full Name</th><th scope="col">Score</th><th scope="col">Percentage</th><th scope="col">Date Completed</th></tr></thead><tbody id="resultsRows"></tbody></table>

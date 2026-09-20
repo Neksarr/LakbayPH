@@ -310,6 +310,19 @@ function formatCompletedAt(completedAt) {
   }).format(date);
 }
 
+let savedQuizResults = [];
+
+function getSearchableDates(completedAt) {
+  if (!completedAt) return [];
+  const date = typeof completedAt.toDate === "function" ? completedAt.toDate() : new Date(completedAt);
+  if (Number.isNaN(date.getTime())) return [];
+  return [
+    formatCompletedAt(completedAt),
+    date.toLocaleDateString(),
+    date.toISOString().slice(0, 10)
+  ].map(value => value.toLowerCase());
+}
+
 function renderSavedResults(results) {
   const rows = document.getElementById("resultsRows");
   rows.replaceChildren();
@@ -337,12 +350,52 @@ function renderSavedResults(results) {
   }
 }
 
+function filterSavedResults() {
+  const search = document.getElementById("resultsSearch");
+  const status = document.getElementById("resultsStatus");
+  const tableWrap = document.getElementById("resultsTableWrap");
+  const count = document.getElementById("resultsSearchCount");
+  const query = search.value.trim().toLowerCase();
+  let results = savedQuizResults;
+
+  if (query) {
+    const scoreQuery = /^\d+(?:\.\d+)?$/.test(query);
+    const percentageQuery = /^\d+(?:\.\d+)?%$/.test(query);
+    const numericQuery = Number(query.replace("%", ""));
+
+    results = savedQuizResults.filter(result => {
+      if (percentageQuery) return Number(result.percentage) === numericQuery;
+      if (scoreQuery) return Number(result.score) === numericQuery;
+      const name = String(result.fullName || result.username || "").toLowerCase();
+      return name.includes(query) || getSearchableDates(result.completedAt).some(value => value.includes(query));
+    });
+  }
+
+  count.textContent = `${results.length} ${results.length === 1 ? "result" : "results"}`;
+  if (!results.length) {
+    document.getElementById("resultsRows").replaceChildren();
+    tableWrap.hidden = true;
+    status.hidden = false;
+    status.textContent = "No quiz results match your search.";
+    return;
+  }
+
+  renderSavedResults(results);
+  status.hidden = true;
+  tableWrap.hidden = false;
+}
+
 async function showSavedResults() {
   const status = document.getElementById("resultsStatus");
   const tableWrap = document.getElementById("resultsTableWrap");
+  const searchWrap = document.getElementById("resultsSearchWrap");
+  const search = document.getElementById("resultsSearch");
   status.hidden = false;
   status.textContent = "Loading results...";
   tableWrap.hidden = true;
+  searchWrap.hidden = true;
+  search.value = "";
+  savedQuizResults = [];
   resultsModal.showModal();
   try {
     const results = await window.loadQuizResults();
@@ -350,15 +403,16 @@ async function showSavedResults() {
       status.textContent = "No quiz results yet.";
       return;
     }
-    renderSavedResults(results);
-    status.hidden = true;
-    tableWrap.hidden = false;
+    savedQuizResults = results;
+    searchWrap.hidden = false;
+    filterSavedResults();
   } catch (error) {
     console.error("Quiz results could not be loaded:", error);
     status.textContent = "Unable to load quiz results. Please check your connection and try again.";
   }
 }
 
+document.getElementById("resultsSearch").addEventListener("input", filterSavedResults);
 document.getElementById("homeSeeResultsBtn").addEventListener("click", showSavedResults);
 document.getElementById("seeResultsBtn").addEventListener("click", showSavedResults);
 
